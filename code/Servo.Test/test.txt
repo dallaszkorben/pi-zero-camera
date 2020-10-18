@@ -1,0 +1,38 @@
+The project is written in Python
+To control the Servos we are using the "pigpio" library
+The "pigpio" uses BCP pin numbering
+
+1. Test the Servo range
+    First you have to find out the range of the pulse time. MIN_PULSE_TIME, MAX_PULSE_TIME
+    Usually the range is between 500-2500, but it could be different
+
+    For the PIN [BCM=18, BOARD=12] run the 02_configure_18.py
+    For the PIN [BCM=8, BOARD=24] run the 01_configure_08.py
+
+    Manually set a number between 500-2500 and see if the Servo moves from -90 to 90 degree.
+    If you want shorter range, then you can find it out the right pulse time.
+    Take a note about the min and max value, and use it in the next test/your own code
+
+2. Test if the Servo moves through the range without jittering
+    There is a big problem with the GPIO library. The Servo is jittering when you move it to the position.
+
+    For the PIN [BCM=18, BOARD=12] run the 04_test_18.py
+    For the PIN [BCM=8, BOARD=24] run the 03_test_08.py
+
+    The code turns the Servo position from min till max position.
+    Before you run, you need to configure the positions.
+    By the default setting the 500 ms pulse time means -90 degree and the 2500 pulse time means 90 degree.
+    (it means that the 1500 ms means 0 degree)
+    If you nedd different angels then you have to make modification in the values.
+
+3. Try out positioning the all structure at once.
+    You already built in the servos into the board, the board is placed and fixed and everything is wired up.
+    In the code - common_test.py - you have to define the camera positions: horizontal degree + vertical degree
+
+    In the "position" dictionary the "key" is the identifier of the camera position, the "value" is a tuple where the first attribute is the horizontal, the second attribute is the vertical position
+    for example: 
+
+	position['2'] = (-90,0) 
+
+    Meaning, the horizontal camera position is in the left side end position: -90 degree, the vertical camera position is right up: 0 degree.
+    If you run the code, it will waiting for you to type the identifier. If you type an existing identifier, it will turn the camera accordingly.
