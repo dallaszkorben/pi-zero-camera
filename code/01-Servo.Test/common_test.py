@@ -1,5 +1,6 @@
 #! /usr/bin/python3 
 import pigpio
+import picamera
 from time import sleep
 
 position = {}
@@ -23,7 +24,7 @@ MAX_HORIZONTAL_DEGREE = 90
 MIN_VERTICAL_DEGREE = -90
 MAX_VERTICAL_DEGREE = 90
 
-# connect to the 
+# connect to the pigpio
 pi = pigpio.pi()
 
 pi.set_servo_pulsewidth(PIN_HORIZONTAL, 0)    # off
@@ -40,6 +41,7 @@ def con_vertical_degree_to_pulse(degree):
     return pulse
 
 
+camera = picamera.PiCamera()
 
 # loop forever
 try:
@@ -52,6 +54,9 @@ try:
 
             pi.set_servo_pulsewidth(PIN_HORIZONTAL, hor_pulse)
             pi.set_servo_pulsewidth(PIN_VERTICAL, ver_pulse)
+
+            sleep(1)
+            camera.capture("pict.jpg")
 
 except KeyboardInterrupt:
     print("CTRL-C: Terminating program.")

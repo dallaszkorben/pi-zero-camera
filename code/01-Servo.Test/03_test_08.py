@@ -4,6 +4,7 @@ from time import sleep
 
 PIN = 8
 MIN_PULSE_TIME = 500		# ms
+MAX_PULSE_TIME = 2500		# ms
 MAX_TIME = 2500		# ms
 LEAP = 1
 
